@@ -80,54 +80,42 @@ int fb(No* no) {
 }
 
 No* rse(No* satelite) {
-    No *pai = satelite->pai, *pivo = satelite->direita, *rebarba = NULL;
-    printf("* Rotação à esquerda de %d em torno de %d", satelite->valor, pivo->valor);
-    if (!pivo->esquerda) {
-        pivo->esquerda = satelite;
-        satelite->pai = pivo;
-    } else {
-        rebarba = pivo->esquerda;
-        while (rebarba->esquerda)
-            rebarba = rebarba->esquerda;
-        rebarba->esquerda = satelite;
-        satelite->pai = rebarba;
-        printf(" a %d", rebarba->valor);
+    No *pai = satelite->pai, *pivo = satelite->direita, *rebarba = pivo->esquerda;
+    printf("* Rotação à esquerda de %d em torno de %d:\n", satelite->valor, pivo->valor);
+    satelite->pai = pivo;
+    pivo->esquerda = satelite;
+    if (!rebarba)
+        satelite->direita = NULL;
+    else {
+        rebarba->pai = satelite;
+        satelite->direita = rebarba;
     }
-    printf("\n");
     pivo->pai = pai;
-    satelite->direita = NULL;
     if (pai && pai->esquerda == satelite)
         pai->esquerda = pivo;
     else if (pai)
         pai->direita = pivo;
     plota(pivo);
-    balanceamento(rebarba);
     return pivo;
 }
 
 No* rsd(No* satelite) {
-    No *pai = satelite->pai, *pivo = satelite->esquerda, *rebarba = NULL;
-    printf("* Rotação à direita de %d em torno de %d", satelite->valor, pivo->valor);
-    if (!pivo->direita) {
-        pivo->direita = satelite;
-        satelite->pai = pivo;
-    } else {
-        rebarba = pivo->direita;
-        while (rebarba->direita)
-            rebarba = rebarba->direita;
-        rebarba->direita = satelite;
-        satelite->pai = rebarba;
-        printf(" a %d", rebarba->valor);
+    No *pai = satelite->pai, *pivo = satelite->esquerda, *rebarba = pivo->direita;
+    printf("* Rotação à direita de %d em torno de %d:\n", satelite->valor, pivo->valor);
+    satelite->pai = pivo;
+    pivo->direita = satelite;
+    if (!rebarba)
+        satelite->esquerda = NULL;
+    else {
+        rebarba->pai = satelite;
+        satelite->esquerda = rebarba;
     }
-    printf("\n");
     pivo->pai = pai;
-    satelite->esquerda = NULL;
     if (pai && pai->esquerda == satelite)
         pai->esquerda = pivo;
     else if (pai)
         pai->direita = pivo;
     plota(pivo);
-    balanceamento(rebarba);
     return pivo;
 }
 

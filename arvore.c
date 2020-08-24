@@ -270,7 +270,7 @@ void plota(No* no) {
             }
         }
     }
-    // imprimir as listas no terminal e desalocá-las da memória
+    // imprimir listas no terminal e desalocá-las da memória
     for (i = 0; i <= h; i++) {
         mostra_LDE(niveis[i], mostra_no);
         limpa_LDE(&niveis[i]);
